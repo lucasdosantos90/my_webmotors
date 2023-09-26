@@ -19,18 +19,31 @@ h1{
 }
 
 form {
+    max-width: 650px;
     margin: 2rem auto;
     width: 90%;
     font-size: large;
     width: fit-content;
 }
 
+#update_automovel > p > input[type=text],#update_automovel > p > input[type=number],
+textarea, select {
+    border: 2px solid #ddd;
+    width: 100%;
+    display: block;
+    font-size: large;
+    margin: .5rem;
+    margin-left: 0;
+    padding: .5rem;
+    border-radius: .5rem;
+    max-width: 600px;
+}
+
 form > div {
-    margin: auto 2rem;
+    margin-top: 25px;
     background-color: white;
     border-radius: .5rem;
     padding: .5rem;
-    width: fit-content;
 }
 
 form > div > p {
@@ -68,8 +81,4 @@ input[type=submit]{
 input[type=submit]:hover{
     cursor: pointer;
     background-color: rgba(255, 0, 0, 0.888);
-}
-
-p:nth-of-type(19),p:nth-of-type(20){
-    display: none;
 }

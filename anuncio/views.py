@@ -21,7 +21,8 @@ def homepage(request):
         automoveis = Automovel.objects.filter(Q(nome__icontains=pesquisa))
     else:
         automoveis = Automovel.objects.all().order_by('data_criado')
-    return render(request,'homepage.html',{'automoveis':automoveis,'title':title})
+    carroceria = Carroceria.objects.all()
+    return render(request,'homepage.html',{'automoveis':automoveis,'title':title,'carroceria':carroceria})
 
 
 def automovel_detalhe(request,id):
@@ -48,9 +49,9 @@ def meus_favoritos(request):
 
 
 def automovel_categoria(request,categoria):
-    automoveis = Automovel.objects.all().filter(carroceria=categoria)
-    carroceria = Carroceria.objects.filter(id=categoria).first()
-    print(carroceria.id)
+    carroceria = Carroceria.objects.filter(carroceria=categoria).first()
+    automoveis = Automovel.objects.all().filter(carroceria=carroceria)
+    print(carroceria)
     title = f'Categorias - {carroceria}'
     return render(request, 'automovel_categoria.html',{'automoveis':automoveis,'carroceria':carroceria,'title':title})
 
@@ -122,10 +123,11 @@ class CadastrarAutomovel(LoginRequiredMixin, CreateView):
     model = Automovel
     #fields = '__all__'
     fields = ['nome','valor','versao_carro','marca','cidade',
-              'estado','ano','km','aceita_troca','licenciado',
-              'foto1','foto2','foto3','foto4','foto5',
-              'contato','status_anuncio',
-              'data_criado','viram_anuncio','vezes_na_lista']
+              'estado','ano','km','placa','nome_loja','ipva_pago',
+              'sobre_automovel','cambio','carroceria','combustivel',
+              'cor','aceita_troca','licenciado',
+              'foto1','foto2','foto3','foto4','foto5','itens_veiculo',
+              'contato','status_anuncio']
     success_url = reverse_lazy('homepage')
 
     #
@@ -150,10 +152,11 @@ class UpdateAutomovel(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Automovel
     #fields = '__all__'
     fields = ['nome','valor','versao_carro','marca','cidade',
-              'estado','ano','km','aceita_troca','licenciado',
-              'foto1','foto2','foto3','foto4','foto5',
-              'contato','status_anuncio',
-              'data_criado','viram_anuncio','vezes_na_lista']
+              'estado','ano','km','placa','nome_loja','ipva_pago',
+              'sobre_automovel','cambio','carroceria','combustivel',
+              'cor','aceita_troca','licenciado',
+              'foto1','foto2','foto3','foto4','foto5','itens_veiculo',
+              'contato','status_anuncio']
     success_url = reverse_lazy('homepage')
 
     def form_valid(self, form):

@@ -34,26 +34,34 @@
 {% block categorias %}
     <h2>Categorias</h2>
     <div id="categorias_container">
-        <a href="{% url 'automovel_categoria' categoria=1 %}" class="categorias">
-            <img id="categoria_hatches" src="{% static 'anuncio/hatches.jpg' %}" alt="">
-            <p>Hatches</p> 
-        </a>
-        <a href="{% url 'automovel_categoria' categoria=2 %}" class="categorias">
-            <img id="categoria_picapes" src="{% static 'anuncio/picapes.jpg' %}" alt="">
-            <p>Picapes</p> 
-        </a>
-        <a href="{% url 'automovel_categoria' categoria=3 %}" class="categorias">
-            <img id="categoria_sedans" src="{% static 'anuncio/sedans.jpg' %}" alt="">
-            <p>Sedans</p> 
-        </a>
-        <a href="{% url 'automovel_categoria' categoria=4 %}" class="categorias">
-            <img id="categoria_suvs" src="{% static 'anuncio/suvs.jpg' %}" alt="">
-            <p>SUVs</p> 
-        </a>
-        <a href="{% url 'automovel_categoria' categoria=5 %}" class="categorias">
-            <img id="categoria_eletricos" src="{% static 'anuncio/eletricos.jpg' %}" alt="">
-            <p>Carros Elétricos</p> 
-        </a>
+        {% for categoria in carroceria %}
+            {% if categoria.carroceria == 'Hatch' %}
+                <a href="{% url 'automovel_categoria' categoria %}" class="categorias">
+                    <img id="categoria_hatches" src="{% static 'anuncio/hatches.jpg' %}" alt="">
+                    <p>{{ categoria }}</p> 
+                </a>
+            {% elif categoria.carroceria == 'Sedan' %}
+                <a href="{% url 'automovel_categoria' categoria %}" class="categorias">
+                    <img id="categoria_sedans" src="{% static 'anuncio/sedans.jpg' %}" alt="">
+                    <p>{{ categoria }}</p> 
+                </a>
+            {% elif categoria.carroceria == 'SUV' %}
+                <a href="{% url 'automovel_categoria' categoria %}" class="categorias">
+                    <img id="categoria_suvs" src="{% static 'anuncio/suvs.jpg' %}" alt="">
+                    <p>{{ categoria }}</p> 
+                </a>
+            {% elif categoria.carroceria == 'Elétrico' %}
+                <a href="{% url 'automovel_categoria' categoria %}" class="categorias">
+                    <img id="categoria_eletricos" src="{% static 'anuncio/eletricos.jpg' %}" alt="">
+                    <p>{{ categoria }}</p> 
+                </a>
+            {% elif categoria.carroceria == 'Picape' %}
+                <a href="{% url 'automovel_categoria' categoria %}" class="categorias">
+                    <img id="categoria_picapes" src="{% static 'anuncio/picapes.jpg' %}" alt="">
+                    <p>{{ categoria }}</p> 
+                </a>
+            {% endif %}
+        {% endfor %}
     </div>
 {% endblock categorias %}
 

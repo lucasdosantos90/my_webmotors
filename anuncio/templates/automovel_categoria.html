@@ -9,15 +9,15 @@
 
 {% block categorias %}
     <div id="categoria_container">
-        {% if carroceria.id == 1 %}
+        {% if carroceria.carroceria == 'Hatch' %}
             <img class="categoria" src="{% static 'anuncio/hatches.jpg' %}" alt="">
-        {% elif carroceria.id == 2 %}
+        {% elif carroceria.carroceria == 'Picape' %}
             <img class="categoria" src="{% static 'anuncio/picapes.jpg' %}" alt="">
-        {% elif carroceria.id == 3 %}
+        {% elif carroceria.carroceria == 'Sedan' %}
             <img class="categoria" src="{% static 'anuncio/sedans.jpg' %}" alt="">
-        {% elif carroceria.id == 4 %}
+        {% elif carroceria.carroceria == 'SUV' %}
             <img class="categoria" src="{% static 'anuncio/suvs.jpg' %}" alt="">
-        {% elif carroceria.id == 5 %}
+        {% elif carroceria.carroceria == 'Elétrico' %}
             <img class="categoria" src="{% static 'anuncio/eletricos.jpg' %}" alt="">
         {% endif %}
     </div>

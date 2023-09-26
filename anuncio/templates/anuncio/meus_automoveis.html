@@ -2,7 +2,6 @@
 
 {% load static %}
 {% block content %}
-<link rel="stylesheet" type="text/css" href="{% static 'anuncio/automovel_list.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'anuncio/homepage.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'anuncio/meus_automoveis.css' %}">
 
@@ -23,7 +22,7 @@
                     </form>
                 </div>
                 <a href="{% url 'automovel_listar' %}">
-                    <input type="submit" id="pesquisa_button" value="PESQUISAR">
+                    <input type="submit" id="pesquisa_button" value="VER OFERTAS ({{automoveis|length}})">
                 </a>
             </div>
         </div>
