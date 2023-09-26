@@ -1,0 +1,189 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'anuncio/homepage.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'anuncio/automoveis_detalhe.css' %}">
+{% for automovel in automoveis %}
+    <div id="automovel_fotos_container">
+        <div id="fotos_container">
+            <img class="automovel_fotos" src="{{automovel.foto1.url}}" alt="">
+            <img class="automovel_fotos" src="{{automovel.foto2.url}}" alt="">
+            <img class="automovel_fotos" src="{{automovel.foto3.url}}" alt="">
+        </div>  
+    </div>
+    <section>
+        <div class="automovel_container_descricao">
+            <div class="automovel_info">
+                <p class="automovel_nome">{{ automovel.nome }}
+                    {% if request.user.id == None or automovel.favoritos.id == None %}
+                        <a href="{% url 'favoritos' automovel.id %}" class="favorito">
+                            <div>
+                                <img src="{% static 'anuncio/favorito.svg' %}" alt="favorito_icon">
+                            </div>
+                        </a>
+                    {% endif %}
+                    {% for fav in automovel.favoritos.all %}                        
+                        {% if fav.id == request.user.id %}
+                            <a href="{% url 'favoritos' automovel.id %}" class="favorito">
+                                <div>
+                                    <img src="{% static 'anuncio/favorito-red.svg' %}" alt="favorito_icon">
+                                </div>
+                            </a>
+                        {% endif %}                
+                    {% endfor %}                    
+                </p>
+                <p class="automovel_versao">{{ automovel.versao_carro }}</p>
+                <div class="titulo_info">Ano
+                    <p class="info">{{ automovel.ano }}</p>
+                </div>
+                <div class="titulo_info">Km
+                    <p class="info">{{ automovel.km }}</p>
+                </div>
+                <div class="titulo_info">Câmbio
+                    {% for cambio in automovel.cambio.all %}
+                        <p class="info">{{ cambio }}</p>
+                    {% endfor %}
+                </div>
+                <div class="titulo_info">Carroceria
+                    {% for carroceria in automovel.carroceria.all %}
+                        <p class="info">{{ carroceria }}</p>
+                    {% endfor %}
+                </div>
+                <div class="titulo_info">Combustível
+                    {% for combustivel in automovel.combustivel.all %}
+                        <p class="info">{{ combustivel }}</p>
+                    {% endfor %}
+                </div>
+                <div class="titulo_info">Final de placa
+                    {% if automovl.placa == None %}
+                        <p class="info">Não informado</p>                
+                    {% else %}
+                        <p class="info">{{ automovel.placa }}</p>                
+                    {% endif %}
+                </div>
+                <div class="titulo_info">Cor
+                    {% for cor in automovel.cor.all %}
+                        <p class="info">{{ cor }}</p>
+                    {% endfor %}
+                </div>
+                <div class="titulo_info">Aceita troca
+                    {% if automovel.aceita_troca == True %}
+                        <p class="info">Sim</p>
+                    {% else %}
+                        <p class="info">Não</p>
+                    {% endif %}
+                </div>
+                <div class="titulo_info">IPVA pago
+                    {% if automovel.ipva_pago == True %}
+                        <p class="info">Sim</p>
+                    {% else %}
+                        <p class="info">Não</p>
+                    {% endif %}
+                </div>
+                <div class="titulo_info">Licenciado
+                    {% if automovel.licenciado == True %}
+                        <p class="info">Sim</p>
+                    {% else %}
+                        <p class="info">Não</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="automovel_info">
+                <div class="titulo_info">Sobre este carro
+                    {% if automovel.sobre %}
+                        <p class="info">{{ automovel.sobre }}</p>
+                    {% else %}
+                        <p class="info">Sem informações sobre o veículo</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="automovel_info">
+                Itens do veículo
+                <div class="titulo_itens">
+                    {% for itens in automovel.itens_veiculo.all %}
+                        <a href="#" class="itens">
+                            {{ itens }}
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="automovel_info">
+                <div class="titulo_info">                    
+                    Sobre o vendedor
+                    <div class="info">{{ automovel.contato }}</div>
+                </div>
+                <div class="titulo_info">                    
+                    Data do anúncio
+                    <div class="info">{{ automovel.data_criado }}</div>
+                </div>
+                <div class="titulo_info">                    
+                    Visualizações do anúncio
+                    <div class="info">{{ automovel.viram_anuncio }}</div>
+                </div>
+                <div class="titulo_info">                    
+                    Vezes na lista
+                    <div class="info">{{ automovel.vezes_na_lista }}</div>
+                </div>
+            </div>
+        </div>
+        <div id="automovel_container_preco">
+            <div class="preco">                    
+                R$ {{ automovel.valor }}
+            </div>
+                {% if request.user == automovel.login %}
+                    <div class="automovel_btn">
+                        <a href="{% url 'update_automovel' automovel.id %}" class="btn">
+                            <p>Atualizar</p>
+                        </a>
+                        <a href="{% url 'delete_automovel' automovel.id %}" class="btn">
+                            <p>Deletar</p>
+                        </a>
+                    </div>
+                {% else %}
+                    <div class="titulo_info">Envie uma mensagem ao vendedor</div>
+                    <form id="post-form" method="POST" action="{% url 'checkview' %}">
+                        {% csrf_token %}
+                        <label for="users" class="hidden">Room Name</label>
+                        <select name="room_name" id="room_name" class="hidden">
+                            <option value="{{automovel.login}}" class="hidden">{{automovel.login}}</option>
+                        </select>
+                        <label class="hidden">Username</label>
+                        <input class="hidden" type="text" name="username" id="username" width="100px" value="{{user.username}}" />
+                        <input type="submit" value="Enviar mensagem">
+                    </form>
+                {% endif %}
+        </div>          
+    </section>
+    
+{% endfor %}
+<div id="container_categoria">
+    <h2>Categorias</h2>
+    <div id="categorias_container">
+        <a href="{% url 'automovel_categoria' categoria=1 %}" class="categorias">
+            <img id="categoria_hatches" src="{% static 'anuncio/hatches.jpg' %}" alt="">
+            <p>Hatches</p> 
+        </a>
+        <a href="{% url 'automovel_categoria' categoria=2 %}" class="categorias">
+            <img id="categoria_picapes" src="{% static 'anuncio/picapes.jpg' %}" alt="">
+            <p>Picapes</p> 
+        </a>
+        <a href="{% url 'automovel_categoria' categoria=3 %}" class="categorias">
+            <img id="categoria_sedans" src="{% static 'anuncio/sedans.jpg' %}" alt="">
+            <p>Sedans</p> 
+        </a>
+        <a href="{% url 'automovel_categoria' categoria=4 %}" class="categorias">
+            <img id="categoria_suvs" src="{% static 'anuncio/suvs.jpg' %}" alt="">
+            <p>SUVs</p> 
+        </a>
+        <a href="{% url 'automovel_categoria' categoria=5 %}" class="categorias">
+            <img id="categoria_eletricos" src="{% static 'anuncio/eletricos.jpg' %}" alt="">
+            <p>Carros Elétricos</p> 
+        </a>
+    </div>
+</div>
+
+
+
+
+{% endblock content %}

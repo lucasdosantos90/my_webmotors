@@ -1,0 +1,103 @@
+*{
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    /* font-family: 'M PLUS Rounded 1c', sans-serif; */
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-color: #eee;
+}
+
+h1{
+    font-size: xx-large;
+    font-weight: 600;
+    margin: auto 2rem;
+    margin-top: 130px;
+}
+
+form {
+    background-color: white;
+    margin: 2rem auto;
+    padding: 3rem;
+    border-radius: .5rem;
+    width: 350px;
+    -webkit-box-shadow: -1px 9px 32px -12px rgba(0,0,0,0.15);
+    -moz-box-shadow: -1px 9px 32px -12px rgba(0,0,0,0.15);
+    box-shadow: -1px 9px 32px -12px rgba(0,0,0,0.15);
+}
+
+form > p {
+    margin: auto 2rem;
+    width: 100%;
+    margin-left: 0;
+}
+
+form > p > input[type=text],form > p > input[type=password]{
+    border-radius: .5rem;
+    padding: .5rem;
+    margin: 2rem auto;
+    font-size: large;
+    text-align: center;
+    display: block;
+    width: 250px;
+    border: 2px solid #ddd;
+}
+
+form > input[type=submit]{
+    display: inline-block;
+    background-color: rgba(255, 0, 0, 0.723);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin: auto 2rem;
+    width: 150px;
+    font-size: large;
+    color: white;
+    text-align: center;
+    font-weight: 500;
+}
+
+form > input[type=submit]:hover{
+    cursor: pointer;
+    background-color: rgba(255, 0, 0, 0.888);
+}
+
+span{
+    display: none;
+    }
+
+ul {
+    display: none;
+}
+
+label[for='id_username']{
+    visibility: hidden;
+}
+label[for='id_username']::after{
+    content: 'Usuário';
+    visibility: visible;
+    text-align: center;
+    display: block;
+}
+
+label[for='id_password1']{
+    visibility: hidden;
+}
+label[for='id_password1']::after{
+    content: 'Senha';
+    visibility: visible;
+    text-align: center;
+    display: block;
+}
+
+label[for='id_password2']{
+    visibility: hidden;
+}
+label[for='id_password2']::after{
+    content: 'Confirmar Senha';
+    visibility: visible;
+    text-align: center;
+    display: block;
+}

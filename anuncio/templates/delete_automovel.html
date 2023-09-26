@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'anuncio/delete_automovel.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'anuncio/homepage.css' %}">
+
+<div id="deletar">
+    <form method="POST">
+        {% csrf_token %}
+        <p>Tem certeza que deseja deletar?</p>
+        <p>{{ delete_automovel_obj }}</p>
+        <input type="submit" value="Deletar" class="btn">
+        <a href="{% url 'automovel_detalhe' delete_automovel_obj.id %}" class="btn">
+            <p>Cancelar</p>
+        </a>
+    </form>
+</div>
+
+{% endblock content %}

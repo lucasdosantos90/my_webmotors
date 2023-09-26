@@ -1,0 +1,140 @@
+{% extends 'homepage.html' %}
+
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'anuncio/automovel_list.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'anuncio/homepage.css' %}">
+<script src="{% static 'anuncio/automovel_list.js' %}"></script>
+
+
+    {% block pesquisa %}
+    {% endblock pesquisa %}
+
+    {% block categorias %}
+    {% endblock categorias %}
+
+    {% block lista %}
+    <div id="barra_lateral">
+        <div id="pesquisa_input">
+            <span class="material-symbols-outlined">
+                search
+            </span>
+            <form method="GET" action="{% url 'automovel_listar' %}">
+                <input type="text" name="search-area" value="" placeholder="Digite marca ou modelo">
+            </form>
+        </div>
+        <a href="{% url 'automovel_listar' %}">
+            <input type="submit" id="pesquisa_button" value="TODAS OFERTAS ({{automoveis|length}})">
+        </a>    
+        <p class="itens_titulo">Filtrar por Itens</p>
+        <div class="itens">
+            {% for itens in itens_veiculo.all %}  
+                <form method="GET" action="{% url 'automovel_listar' %}" id="form_id" autocomplete="off">
+                    <div class="p_itens">{{itens}}</div>
+                    <input type="submit" name="search_itens_veiculo" value="{{itens.id}}" class="submit_itens">
+                </form>
+            {% endfor %}  
+        </div>
+        <p class="titulo">Filtrar por Cor</p>
+        <div class="itens">
+            {% for cor in cor_veiculo.all %}  
+                <form method="GET" action="{% url 'automovel_listar' %}" id="form_id" autocomplete="off">
+                    <div class="p_itens">{{cor}}</div>
+                    <input type="submit" name="search_cor_veiculo" value="{{cor.id}}" class="submit_itens">
+                </form>
+            {% endfor %}  
+        </div>
+        <p class="titulo">Filtrar por Cambio</p>
+        <div class="itens">
+            {% for cambio in cambio_veiculo.all %}  
+                <form method="GET" action="{% url 'automovel_listar' %}" id="form_id" autocomplete="off">
+                    <div class="p_itens">{{cambio}}</div>
+                    <input type="submit" name="search_cambio_veiculo" value="{{cambio.id}}" class="submit_itens">
+                </form>
+            {% endfor %}  
+        </div>
+        <p class="titulo">Filtrar por Carroceria</p>
+        <div class="itens">
+            {% for carroceria in carroceria_veiculo.all %}  
+                <form method="GET" action="{% url 'automovel_listar' %}" id="form_id" autocomplete="off">
+                    <div class="p_itens">{{carroceria}}</div>
+                    <input type="submit" name="search_carroceria_veiculo" value="{{carroceria.id}}" class="submit_itens">
+                </form>
+            {% endfor %}  
+        </div>
+        <p class="titulo">Filtrar por Combustível</p>
+        <div class="itens">
+            {% for combustivel in combustivel_veiculo.all %}  
+                <form method="GET" action="{% url 'automovel_listar' %}" id="form_id" autocomplete="off">
+                    <div class="p_itens">{{combustivel}}</div>
+                    <input type="submit" name="search_combustivel_veiculo" value="{{combustivel.id}}" class="submit_itens">
+                </form>
+            {% endfor %}  
+        </div>
+    </div>
+        <div id="barra_lista">
+            <div id="barra_pesquisa">
+                <div id="tune">
+                    <span class="material-symbols-outlined">
+                        tune
+                    </span>
+                </div>
+            </div>
+            <div id="automovel_container">
+                <!-- slice:":5" vai limitar o numero de veiculos que vai ser percorrido no objeto automoveis: 
+                    { % for automovel in automoveis|slice:":5" % }
+                -->
+                {% for automovel in automoveis %}
+                <div id="automovel_div">
+                            <a href="{% url 'automovel_detalhe' automovel.id %}">
+                                <img src="{{ automovel.foto1.url }}" alt="">
+                            </a>
+                            <p id="automovel_nome">{{ automovel.nome }}</p>
+                            <p id="automovel_versao_carro">{{ automovel.versao_carro }}</p>
+                            {% if request.user == automovel.login %}
+                                <div class="buttons">
+                                    <a href="{% url 'update_automovel' automovel.id %}" class="btn">
+                                        <p>Atualizar</p>
+                                    </a>
+                                    <a href="{% url 'delete_automovel' automovel.id %}" class="btn">
+                                        <p>Deletar</p>
+                                    </a>
+                                </div>
+                            {% else %}
+                                <div class="buttons">
+                                    <a href="{% url 'automovel_detalhe' automovel.id %}" class="btn">
+                                        <p>Detalhe</p>
+                                    </a>
+                                </div>
+                            {% endif %}
+                            <div id="automovel_desc">
+                                <p id="automovel_valor">R$ {{ automovel.valor }}
+                                </p>
+                                <p class="btn_parcelas">Ver Parcelas</p>
+                                <p id="automovel_ano">{{ automovel.ano }}</p>
+                                <p id="automovel_km">{{ automovel.km }} Km</p>
+                            </div>
+                            <div id="local">
+                                <span class="material-symbols-outlined">
+                                    location_on
+                                </span>
+                                <p id="automovel_cidade_estado">
+                                    {{ automovel.cidade }} - {{ automovel.estado }}
+                                </p>
+                            </div>
+                        </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endblock lista %}
+
+    {% block footer %}
+    {% endblock footer %}
+
+{% endblock content %}    
+
+
+
+
+
+

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'anuncio/cadastrar_automovel.css' %}">
+
+<h1>Cadastrar Automovel</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            {{ form.as_p }}
+        </div>
+        <input type="submit" value="Cadastrar">
+    </form>
+{% endblock content %}

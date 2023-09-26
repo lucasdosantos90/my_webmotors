@@ -1,0 +1,152 @@
+*{
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+#pesquisa_button{
+    width: 90% !important;
+    top: 265px;
+    /* display: block !important; */
+    position: relative;
+    left: 0;
+    margin: auto 5% !important;
+    top: 125px !important;
+}
+
+#pesquisa_input{
+    width: 90% !important;
+    top: 200px;
+    display: block !important;
+    position: relative;
+    left: 0;
+    margin: auto 5% !important;
+    top: 100px !important;
+}
+
+.itens{
+    top: 150px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid red;
+}
+
+.itens_titulo{
+    top: 150px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+    border-top: 2px solid red;
+    padding-left: 2rem;
+}
+
+.titulo{
+    top: 150px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+    /* border-bottom: 2px solid red; */
+    padding-left: 2rem;
+}
+
+.p_itens{
+    border-radius: .5rem;
+    background-color: rgba(255, 0, 0, 0.723);
+    display: inline-block;
+    margin: .5rem;
+    padding: .5rem;
+    color: white;
+    font-weight: 500;
+}
+
+.p_itens:hover{
+    cursor: pointer;
+    background-color: rgba(255, 0, 0, 0.888);
+}
+
+#pesq_res{
+    display: inherit;
+}
+
+.itens > form > input[type=submit] {
+    display: none;
+}
+
+@media (max-width: 1024px) {
+    #barra_lateral{
+        /*   */
+        width: 100% !important;
+        height: 300px !important;
+        margin-top: 75px !important;
+        position: initial !important;
+    }
+    #barra_lista{
+        left: 0 !important;
+        position: absolute !important;
+        top: 180px !important;
+    }
+    #pesquisa_input{
+        width: 90% !important;
+        top: 200px;
+        display: block !important;
+        position: relative;
+        left: 0;
+        margin: auto 5% !important;
+        top: 10px !important;
+    }
+    #pesquisa_button{
+        width: 90% !important;
+        top: 265px;
+        /* display: block !important; */
+        position: relative;
+        left: 0;
+        margin: auto 5% !important;
+        top: 25px !important;
+    }
+    .itens,.itens_titulo,.titulo{
+        top: 60px !important;
+    }
+}
+
+#barra_lateral{
+    background-color: white;
+    position: fixed;
+    width: 393px;
+    height: 100%;
+    overflow: auto;
+}
+
+#barra_lista{
+    width: fit-content;
+    padding-top: 150px;
+    left: 393px;
+    position: absolute;
+    top: 0;
+}
+
+#automovel_container {
+    margin: auto 50px !important;
+}
+
+#barra_pesquisa{
+    height: 55px;
+}
+
+#barra_pesquisa > div > span{
+    padding-left: 55px;
+}
+
+#barra_pesquisa > div > span:hover{
+    cursor: pointer;
+    color: red;
+}

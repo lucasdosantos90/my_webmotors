@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'anuncio/base.css' %}">
+    <script type="text/javascript" src="{% static 'anuncio/base.js' %}" defer></script>
+
+    <!-- Google Icons here -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    
+
+        
+    {% if title %}
+        <title>Webmotors - {{title}}</title>
+    {% else %}
+        <title>Webmotors</title>
+    {% endif %}
+</head>
+<body>
+{% block nav_base %}
+    <nav>
+        <!-- <p id="webmotors">
+            <img id="site_icon" src="{% static 'anuncio/site_icon.png' %}" alt="Gear Car Icon">
+            <p id="webmotors_text">webmotors</p>
+        </p> -->
+        <a href="{% url 'homepage' %}" id="webmotors">
+            <img id="site_icon" src="{% static 'anuncio/site_icon.png' %}" alt="Gear Car Icon">
+            <p id="webmotors_text">webmotors</p>
+        </a>
+        <div id="nav_user">
+            {% if request.user.is_authenticated %}
+                <p id="user_name">
+                    <span class="material-symbols-outlined">
+                        account_circle
+                    </span>
+                    Olá, {{ request.user }}                    
+                </p>
+                <div id="user_links">
+                    <a href="{% url 'logout' %}">
+                        <span class="material-symbols-outlined">
+                            logout
+                        </span>
+                        <p>Logout</p>
+                    </a>
+                    <a href="{% url 'cadastrar_automovel' %}">
+                        <span class="material-symbols-outlined">
+                            add
+                        </span>
+                        <p>Cadastrar Automovel</p>                        
+                    </a>
+                    <a href="{% url 'meus_automoveis' %}">
+                        <span class="material-symbols-outlined">
+                            directions_car
+                        </span>
+                        <p>Meus Automoveis</p>                        
+                    </a>
+                    <a href="{% url 'meus_favoritos' %}">
+                        <span class="material-symbols-outlined">
+                            favorite
+                        </span>
+                        <p>Meus Favoritos</p>                        
+                    </a>
+                </div>
+            {% else %}
+                <a class="no_login" href="{% url 'login' %}">
+                    <span class="material-symbols-outlined">
+                        login
+                    </span>
+                    Login
+                </a>
+                <a class="no_login" href="{% url 'register' %}">
+                    <span class="material-symbols-outlined">
+                        person_add
+                    </span>
+                    Registrar
+                </a>
+            {% endif %}
+        </div>
+    </nav>
+    <hr>
+{% endblock nav_base %}
+
+{% block content %}    
+{% endblock content %}   
+
+{% block footer %}
+    <footer>
+        <div id="faixa">
+            <p>Nossos canais de atendimento são 100% digitais.</p>
+        </div>
+        <div id="container_footer">
+
+        </div>
+        <div id="faixa">
+            <p>Uma empresa <span>webmotors</span></p>
+        </div>
+        <p>@ 2023 webmotors - Desenvolvido por Lucas </p>
+    </footer>
+{% endblock footer %}
+</body>
+</html>

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'anuncio/homepage.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'anuncio/update_automovel.css' %}">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div id="update_automovel">
+            {{ form.as_p }}
+        </div>
+        <input type="submit" value="Atualizar">
+    </form>
+{% endblock content %}

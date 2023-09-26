@@ -1,0 +1,227 @@
+*{
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #eee;
+}
+
+#automovel_fotos_container{
+    width: 100vw;
+}
+
+#fotos_container{
+    width: 100%;
+    margin-top: 75px;
+}
+
+.automovel_fotos{
+    width: 32.5%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0;
+}
+
+.hidden{
+    display: none;
+}
+
+section{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /* height: 100%; */
+    padding: .5rem;
+    margin-left: 10vw;
+    margin-right: 10vw;
+}
+
+.automovel_container_descricao{
+    display: inline-block;
+    position: relative;
+    width: 40vw;
+    /* height: 800px; */
+    margin: .5rem;
+    margin-left: 10%;
+    border-radius: 0.5rem;
+    background-color: white;
+    margin-top: -3rem;
+    -webkit-box-shadow: 0px 6px 10px 1px rgba(0,0,0,0.21);
+    -moz-box-shadow: 0px 6px 10px 1px rgba(0,0,0,0.21);
+    box-shadow: 0px 6px 10px 1px rgba(0,0,0,0.21);
+}
+
+#automovel_container_preco{
+    display: inline-block;
+    position: sticky;
+    top: 80px;
+    width: 25vw;
+    height: 100%;
+    margin: .5rem;
+    margin-left: 0.5rem;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    background-color: white;
+    margin-top: -3rem;
+    -webkit-box-shadow: 0px 6px 10px 1px rgba(0,0,0,0.21);
+    -moz-box-shadow: 0px 6px 10px 1px rgba(0,0,0,0.21);
+    box-shadow: 0px 6px 10px 1px rgba(0,0,0,0.21);
+}
+
+button,input[type=submit] {
+    background-color: rgba(255, 0, 0, 0.723);
+    padding: .5rem;
+    margin: .5rem;
+    margin-left: 0;
+    border-radius: .5rem;
+    color: white;
+    font-size: larger;
+}
+
+button:hover,input[type=submit]:hover{
+    cursor: pointer;
+    background-color: red;
+}
+
+.preco{
+    font-size: xx-large;
+    font-weight: 500;
+    margin-bottom: 2rem;
+}
+
+#container_categoria{
+    display: block;
+}
+
+.automovel_info{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 3rem;
+    padding-top: 2rem;
+    margin: 0;
+    border-bottom: 1px solid #eee;
+    color: #777;
+}
+
+.automovel_info:last-of-type{
+    border-bottom: none;
+}
+
+form > label{
+    display: inherit;
+    padding: .5rem;
+    margin: .5rem;
+    border: 2px solid #777;
+    border-radius: .5rem;
+    color: #777;
+    margin-left: 0;
+}
+
+form > label > input {
+    outline: none;
+    font-size: larger;
+    width: 70%;
+}
+.titulo_info{
+    color: #777;
+    margin: .5rem;
+    margin-left: 0;
+    margin-right: 2rem;
+}
+
+.titulo_itens{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    color: #777;
+}
+
+.itens{
+    color: black;
+    font-weight: 500;
+    margin: .5rem;
+    margin-left: 0;
+    margin-right: 4rem;
+    text-decoration: none;
+}
+
+.itens:hover{
+    cursor: pointer;
+    color: black;
+    background-color: rgba(255, 0, 0, 0.723);
+    border-radius: .5rem;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.automovel_nome{
+    display: inline-block;
+    width: 90%;
+    font-size: xx-large;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: rgba(255, 0, 0, 0.723);
+    margin: .5rem;
+    margin-top: 0;
+    margin-left: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+}
+
+.favorito {
+    width: 55px;
+    left: 70%;
+    position: absolute;
+    color: red;
+    border-radius: 0;
+}
+.favorito span:hover{
+    cursor: pointer;
+}
+
+.automovel_versao{
+    display: inline-block;
+    width: 90%;
+    font-size: medium;
+    text-transform: uppercase;
+    color: #777;
+    margin: .5rem;
+    margin-left: 0;
+    margin-top: 0;
+    margin-bottom: 2rem;
+}
+
+.automovel_btn{
+    display: block;
+    width: 100%;
+    font-size: medium;
+    text-transform: uppercase;
+    color: #777;
+    margin: .5rem;
+    margin-left: 0;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.info{
+    color: black;
+    font-weight: 500;
+    margin: .5rem;
+    margin-left: 0;
+}
+
+@media (max-width: 1024px) {
+    section{
+        /* height: 180%; */
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+    .automovel_container_descricao,#automovel_container_preco{
+        margin: 10px auto;
+        width: 90%;
+    }
+}
