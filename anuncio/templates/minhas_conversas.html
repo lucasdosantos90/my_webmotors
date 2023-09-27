@@ -1,0 +1,19 @@
+
+
+{{salas}}
+{{mensagens}}
+{% for sala in salas %}
+    {{sala}}
+{% endfor %}
+<form id="post-form" method="POST" action="{% url 'checkview' %}">
+    {% csrf_token %}
+    <label for="users" class="hidden">Room Name</label>
+    <select name="room_name" id="room_name" class="hidden">
+        {% for sala in salas %}
+            <option value="{{sala}}" class="hidden">{{sala}}</option>
+        {% endfor %}
+    </select>
+    <label class="hidden">Username</label>
+    <input class="hidden" type="text" name="username" id="username" width="100px" value="{{user}}" />
+    <input type="submit" value="Enviar mensagem">
+</form>

@@ -183,6 +183,18 @@ form > label > input {
     cursor: pointer;
 }
 
+#fav_container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 250px;
+}
+
+#fav_container > div{
+    margin-left: .5rem;
+
+}
+
 .automovel_versao{
     display: inline-block;
     width: 90%;

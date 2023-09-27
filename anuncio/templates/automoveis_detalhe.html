@@ -31,7 +31,16 @@
                                 </div>
                             </a>
                         {% endif %}                
-                    {% endfor %}                    
+                    {% endfor %}
+                    <!-- QUEM FAVORITOU -->
+                    {% if automovel.favoritos.all %}    
+                        Favoritado por:
+                        <div id="fav_container">
+                                {% for fav in automovel.favoritos.all  %}
+                                <div>{{fav}}</div>
+                                {% endfor %}
+                            </div>
+                    {% endif %}
                 </p>
                 <p class="automovel_versao">{{ automovel.versao_carro }}</p>
                 <div class="titulo_info">Ano

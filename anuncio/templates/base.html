@@ -62,6 +62,12 @@
                         </span>
                         <p>Meus Favoritos</p>                        
                     </a>
+                    <a href="{% url 'minhas_conversas' request.user %}">
+                        <span class="material-symbols-outlined">
+                            sms
+                        </span>
+                        <p>Minhas Conversas</p>                        
+                    </a>
                 </div>
             {% else %}
                 <a class="no_login" href="{% url 'login' %}">

@@ -254,3 +254,11 @@ def getMessages(request, room):
     room_details = Room.objects.get(name=room)
     messages = Message.objects.filter(room=room_details.id)
     return JsonResponse({"messages":list(messages.values())})   
+
+
+def minhas_conversas(request,room):
+    mensagens = Message.objects.filter().all()
+    salas = Room.objects.filter().all()
+    print(mensagens)
+    print(salas)
+    return render(request, 'minhas_conversas.html', {'mensagens': mensagens,'salas': salas})

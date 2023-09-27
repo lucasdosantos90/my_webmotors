@@ -23,4 +23,5 @@ urlpatterns = [
      path('checkview', views.checkview, name='checkview'),
      path('send', views.send, name='send'),
      path('getMessages/<str:room>/', views.getMessages, name='getMessages'),  
+     path('minhas_conversas/<str:room>/', views.minhas_conversas, name='minhas_conversas'),  
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
