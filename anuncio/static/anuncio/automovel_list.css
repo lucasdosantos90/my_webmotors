@@ -5,6 +5,36 @@
     box-sizing: border-box;
 }
 
+.filtro_tipo_automovel{
+    width: 50%;
+    background-color: rgba(255, 0, 0, 0.723);
+    height: 50px;
+    text-align: center;
+    padding: .9rem;
+    font-size: larger;
+    font-weight: 500;
+    color: white;
+    text-decoration: none;
+}
+
+.submit_tipo_automovel{
+    display: none;
+}
+
+.filtro_tipo_automovel > form > input[type=submit]{
+    background-color: rgba(255, 0, 0, 0.723);
+    font-size: larger;
+    font-weight: 500;
+    color: white;
+    text-decoration: none;
+}
+
+.filtro_tipo_automovel:hover{
+    cursor: pointer;
+    background-color: red;
+}
+
+
 #pesquisa_button{
     width: 90% !important;
     top: 265px;
@@ -31,8 +61,8 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    padding-bottom: 1rem;
-    border-bottom: 2px solid red;
+    /* padding-bottom: 1rem; */
+    border-bottom: 2px solid rgba(255, 0, 0, 0.723);
 }
 
 .itens_titulo{
@@ -43,7 +73,7 @@
     flex-wrap: wrap;
     padding-bottom: 1rem;
     padding-top: 1rem;
-    border-top: 2px solid red;
+    border-top: 2px solid rgba(255, 0, 0, 0.723);
     padding-left: 2rem;
 }
 
@@ -93,7 +123,10 @@
     #barra_lista{
         left: 0 !important;
         position: absolute !important;
-        top: 180px !important;
+        /* top: 380px !important; */
+        display: contents;
+        top: 0px;
+        left: 39px;
     }
     #pesquisa_input{
         width: 90% !important;
@@ -128,10 +161,10 @@
 
 #barra_lista{
     width: fit-content;
-    padding-top: 150px;
+    padding-top: 15px;
     left: 393px;
     position: absolute;
-    top: 0;
+    top: 100px;
 }
 
 #automovel_container {
@@ -139,7 +172,7 @@
 }
 
 #barra_pesquisa{
-    height: 55px;
+    margin-top: 90px !important;
 }
 
 #barra_pesquisa > div > span{

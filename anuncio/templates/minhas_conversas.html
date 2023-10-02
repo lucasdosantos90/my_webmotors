@@ -1,19 +1,57 @@
+{% extends 'base.html' %}
 
 
-{{salas}}
-{{mensagens}}
-{% for sala in salas %}
-    {{sala}}
-{% endfor %}
-<form id="post-form" method="POST" action="{% url 'checkview' %}">
-    {% csrf_token %}
-    <label for="users" class="hidden">Room Name</label>
-    <select name="room_name" id="room_name" class="hidden">
-        {% for sala in salas %}
-            <option value="{{sala}}" class="hidden">{{sala}}</option>
-        {% endfor %}
-    </select>
-    <label class="hidden">Username</label>
-    <input class="hidden" type="text" name="username" id="username" width="100px" value="{{user}}" />
-    <input type="submit" value="Enviar mensagem">
-</form>
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+<link rel="stylesheet" type="text/css" href="{% static 'anuncio/homepage.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'anuncio/conversas.css' %}">
+
+{% block pesquisa %}
+<div id="pesquisa_container">
+    <div id="pesquisa">
+        <a href="{% url 'automovel_listar' %}" id="pesquisa_carros">Comprar Carros</a>
+        <a href="{% url 'automovel_listar' %}" id="pesquisa_motos">Comprar Motos</a>
+        <a href="{% url 'cadastrar_automovel' %}" id="pesquisa_vender">Quero Vender</a>
+        <div id="pesquisa_input_container">
+            <div id="pesquisa_input">
+                <span class="material-symbols-outlined">
+                    search
+                </span>
+                <form method="GET" action="{% url 'homepage' %}">
+                    <input type="text" name="search-area" value="" placeholder="Digite marca ou modelo">
+                </form>
+            </div>
+            <a href="{% url 'automovel_listar' %}">
+                <input type="submit" id="pesquisa_button" value="VER OFERTAS">
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock pesquisa %}
+
+    {% if sala %}
+        <h2>Conversas</h2>
+        <div id="conversas">
+            {% for sala in salas %}
+                <form id="post-form" method="POST" action="{% url 'checkview' %}">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{sala.name}}" name="room_name" id="room_name" class="hidden">
+                    <input class="hidden" type="hidden" name="username" id="username" width="100px" value="" />
+                    <input class="hidden" type="hidden" name="carro" id="carro" width="100px" value="{{sala.carro}}" />
+                    {% for carro in carros %}     
+                        {% if carro.id|stringformat:"s" == sala.carro %}
+                            <input type="submit" value="{{sala.receiver}} - {{carro.nome}}" class="receiver">                
+                        {% endif %}
+                    {% endfor %}
+                </form>
+            {% endfor %}
+        </div>
+    {% else %}
+        <h2>Você não tem conversas!</h2>
+    {% endif %}
+
+{% block footer %}
+{% endblock footer %}
+
+{% endblock content %}

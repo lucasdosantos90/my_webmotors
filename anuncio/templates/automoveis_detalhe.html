@@ -4,13 +4,26 @@
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'anuncio/homepage.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'anuncio/automoveis_detalhe.css' %}">
+<script type="text/javascript" src="{% static 'anuncio/automoveis_detalhe.js' %}" defer></script>
 {% for automovel in automoveis %}
     <div id="automovel_fotos_container">
         <div id="fotos_container">
             <img class="automovel_fotos" src="{{automovel.foto1.url}}" alt="">
             <img class="automovel_fotos" src="{{automovel.foto2.url}}" alt="">
             <img class="automovel_fotos" src="{{automovel.foto3.url}}" alt="">
+            <img class="automovel_fotos" src="{{automovel.foto4.url}}" alt="">
+            <img class="automovel_fotos" src="{{automovel.foto5.url}}" alt="">
         </div>  
+        <div class="btn_img_left">
+            <span class="material-symbols-outlined">
+                arrow_back
+            </span>
+        </div>
+        <div class="btn_img_right">
+            <span class="material-symbols-outlined">
+                arrow_forward
+            </span>
+        </div>
     </div>
     <section>
         <div class="automovel_container_descricao">
@@ -100,8 +113,8 @@
             </div>
             <div class="automovel_info">
                 <div class="titulo_info">Sobre este carro
-                    {% if automovel.sobre %}
-                        <p class="info">{{ automovel.sobre }}</p>
+                    {% if automovel.sobre_automovel %}
+                        <p class="info">{{ automovel.sobre_automovel }}</p>
                     {% else %}
                         <p class="info">Sem informações sobre o veículo</p>
                     {% endif %}
@@ -111,9 +124,9 @@
                 Itens do veículo
                 <div class="titulo_itens">
                     {% for itens in automovel.itens_veiculo.all %}
-                        <a href="#" class="itens">
+                        <div class="info">
                             {{ itens }}
-                        </a>
+                        </div>
                     {% endfor %}
                 </div>
             </div>
@@ -124,7 +137,7 @@
                 </div>
                 <div class="titulo_info">                    
                     Data do anúncio
-                    <div class="info">{{ automovel.data_criado }}</div>
+                    <div class="info">{{ automovel.data_criado|date:'d/m/Y - H:i' }}</div>
                 </div>
                 <div class="titulo_info">                    
                     Visualizações do anúncio
@@ -137,11 +150,11 @@
             </div>
         </div>
         <div id="automovel_container_preco">
-            <div class="preco">                    
+            <div class="preco" style="text-align: center;">                    
                 R$ {{ automovel.valor }}
             </div>
                 {% if request.user == automovel.login %}
-                    <div class="automovel_btn">
+                    <div class="automovel_btn" style="text-align: center;">
                         <a href="{% url 'update_automovel' automovel.id %}" class="btn">
                             <p>Atualizar</p>
                         </a>
@@ -159,6 +172,7 @@
                         </select>
                         <label class="hidden">Username</label>
                         <input class="hidden" type="text" name="username" id="username" width="100px" value="{{user.username}}" />
+                        <input class="hidden" type="text" name="carro" id="carro" width="100px" value="{{automovel.id}}" />
                         <input type="submit" value="Enviar mensagem">
                     </form>
                 {% endif %}

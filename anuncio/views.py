@@ -8,7 +8,7 @@ from django.contrib.auth import login
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from django.db.models import Q
-from .models import Automovel, Carroceria, Room, Message, Itens_veiculo, Cor, Cambio, Combustivel
+from .models import Automovel, Carroceria, Room, Message, Itens_veiculo, Cor, Cambio, Combustivel, TipoAutomovel, MarcaAutomovel
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
@@ -22,12 +22,18 @@ def homepage(request):
     else:
         automoveis = Automovel.objects.all().order_by('data_criado')
     carroceria = Carroceria.objects.all()
+    for automovel in automoveis:
+        automovel.vezes_na_lista += 1
+        automovel.save()
     return render(request,'homepage.html',{'automoveis':automoveis,'title':title,'carroceria':carroceria})
 
 
 def automovel_detalhe(request,id):
     automoveis = Automovel.objects.filter(id=id)
     title = f'Anúncio - {automoveis}'
+    for automovel in automoveis:
+        automovel.viram_anuncio += 1
+        automovel.save()
     return render(request,'automoveis_detalhe.html',{'automoveis':automoveis,'title':title})
          
 
@@ -71,6 +77,8 @@ class AutomovelList(ListView):
         context['carroceria_veiculo'] = Carroceria.objects.all()
         context['combustivel_veiculo'] = Combustivel.objects.all()
         context['cambio_veiculo'] = Cambio.objects.all()
+        context['tipo_automovel'] = TipoAutomovel.objects.all()
+        context['marca_automovel'] = MarcaAutomovel.objects.all()
         
         search_input = self.request.GET.get('search-area') or ''
         if search_input:
@@ -97,6 +105,14 @@ class AutomovelList(ListView):
         if cambio_veiculo:
             context['automoveis'] = context['automoveis'].filter(cambio=cambio_veiculo)
         
+        tipo_automovel = self.request.GET.get('search_tipo_automovel') or ''
+        if tipo_automovel:
+            context['automoveis'] = context['automoveis'].filter(tipo_automovel=tipo_automovel)
+
+        marca_automovel = self.request.GET.get('search_marca_automovel') or ''
+        if marca_automovel:
+            context['automoveis'] = context['automoveis'].filter(marca=marca_automovel)
+
         return context
      
     
@@ -122,7 +138,7 @@ class CadastrarAutomovel(LoginRequiredMixin, CreateView):
     template_name = 'cadastrar_automovel.html'
     model = Automovel
     #fields = '__all__'
-    fields = ['nome','valor','versao_carro','marca','cidade',
+    fields = ['nome','tipo_automovel','valor','versao_carro','marca','cidade',
               'estado','ano','km','placa','nome_loja','ipva_pago',
               'sobre_automovel','cambio','carroceria','combustivel',
               'cor','aceita_troca','licenciado',
@@ -151,7 +167,7 @@ class UpdateAutomovel(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     template_name = 'update_automovel.html'
     model = Automovel
     #fields = '__all__'
-    fields = ['nome','valor','versao_carro','marca','cidade',
+    fields = ['nome','tipo_automovel','valor','versao_carro','marca','cidade',
               'estado','ano','km','placa','nome_loja','ipva_pago',
               'sobre_automovel','cambio','carroceria','combustivel',
               'cor','aceita_troca','licenciado',
@@ -224,8 +240,10 @@ def room(request, room):
 
 @login_required(login_url='/login/')
 def checkview(request):
+    receiver = request.POST['room_name']
     room = request.POST['room_name']
     username = request.POST['username']
+    carro = request.POST['carro']
     
     room1 = room + username
     room2 = username + room
@@ -235,7 +253,7 @@ def checkview(request):
     elif Room.objects.filter(name=room2).exists():
         return redirect('/'+room2+'/?username='+username)   
     else:
-        new_room = Room.objects.create(name=room1)
+        new_room = Room.objects.create(name=room1,created_by=username,receiver=receiver,carro=carro)
         new_room.save()
         return redirect('/'+room1+'/?username='+username)
 
@@ -259,6 +277,7 @@ def getMessages(request, room):
 def minhas_conversas(request,room):
     mensagens = Message.objects.filter().all()
     salas = Room.objects.filter().all()
+    carros = Automovel.objects.filter().all()
     print(mensagens)
     print(salas)
-    return render(request, 'minhas_conversas.html', {'mensagens': mensagens,'salas': salas})
+    return render(request, 'minhas_conversas.html', {'mensagens': mensagens,'salas': salas,'carros':carros})

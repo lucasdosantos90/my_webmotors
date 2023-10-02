@@ -7,81 +7,84 @@
 <link rel="stylesheet" type="text/css" href="{% static 'anuncio/meus_favoritos.css' %}">
 
     {% block pesquisa %}
-    <div id="pesquisa_container">
-        <div id="pesquisa">
-            <a href="" id="pesquisa_carros">Comprar Carros</a>
-            <a href="" id="pesquisa_motos">Comprar Motos</a>
-            <a href="" id="pesquisa_vender">Quero Vender</a>
-            <a href="" id="pesquisa_financiar">Quero Financiar</a>
-            <div id="pesquisa_input_container">
-                <div id="pesquisa_input">
-                    <span class="material-symbols-outlined">
-                        search
-                    </span>
-                    <form method="GET" action="{% url 'homepage' %}">
-                        <input type="text" name="search-area" value="" placeholder="Digite marca ou modelo">
-                    </form>
+        <div id="pesquisa_container">
+            <div id="pesquisa">
+                <a href="{% url 'automovel_listar' %}" id="pesquisa_carros">Comprar Carros</a>
+                <a href="{% url 'automovel_listar' %}" id="pesquisa_motos">Comprar Motos</a>
+                <a href="{% url 'cadastrar_automovel' %}" id="pesquisa_vender">Quero Vender</a>
+                <div id="pesquisa_input_container">
+                    <div id="pesquisa_input">
+                        <span class="material-symbols-outlined">
+                            search
+                        </span>
+                        <form method="GET" action="{% url 'homepage' %}">
+                            <input type="text" name="search-area" value="" placeholder="Digite marca ou modelo">
+                        </form>
+                    </div>
+                    <a href="{% url 'automovel_listar' %}">
+                        <input type="submit" id="pesquisa_button" value="VER OFERTAS">
+                    </a>
                 </div>
-                <a href="{% url 'automovel_listar' %}">
-                    <input type="submit" id="pesquisa_button" value="PESQUISAR">
-                </a>
             </div>
         </div>
-    </div>
     {% endblock pesquisa %}
 
     {% block categorias %}
     {% endblock categorias %}
 
     {% block lista %}
-    <h2>Meus Favoritos</h1>
-        <div id="automovel_container">
-            <!-- slice:":5" vai limitar o numero de veiculos que vai ser percorrido no objeto automoveis: 
-                { % for automovel in automoveis|slice:":5" % }
-            -->
-            {% for favorito in favoritos %}
-            <a href="{% url 'automovel_detalhe' favorito.id %}">
-                <div id="automovel_div">
+        {% if favoritos %}
+            <h2>Meus Favoritos</h1>
+                <div id="automovel_container">
+                    <!-- slice:":5" vai limitar o numero de veiculos que vai ser percorrido no objeto automoveis: 
+                        { % for automovel in automoveis|slice:":5" % }
+                    -->
+                    {% for favorito in favoritos %}
                     <a href="{% url 'automovel_detalhe' favorito.id %}">
-                        <img src="{{ favorito.foto1.url }}" alt="">
+                        <div id="automovel_div">
+                            <a href="{% url 'automovel_detalhe' favorito.id %}">
+                                <img src="{{ favorito.foto1.url }}" alt="">
+                            </a>
+                            <p id="automovel_nome">{{ favorito.nome }}</p>
+                            <p id="automovel_versao_carro">{{ favorito.versao_carro }}</p>
+                            {% if request.user == favorito.login %}
+                                <div class="buttons">
+                                    <a href="{% url 'update_automovel' favorito.id %}" class="btn">
+                                        <p>Atualizar</p>
+                                    </a>
+                                    <a href="{% url 'delete_automovel' favorito.id %}" class="btn">
+                                        <p>Deletar</p>
+                                    </a>
+                                </div>
+                            {% else %}
+                                <div class="buttons">
+                                    <a href="{% url 'automovel_detalhe' favorito.id %}" class="btn">
+                                        <p>Detalhe</p>
+                                    </a>
+                                </div>
+                            {% endif %}
+                            <div id="automovel_desc">
+                                <p id="automovel_valor">R$ {{ favorito.valor }}
+                                </p>
+                                <p class="btn_parcelas">Ver Parcelas</p>
+                                <p id="automovel_ano">{{ favorito.ano }}</p>
+                                <p id="automovel_km">{{ favorito.km }} Km</p>
+                            </div>
+                            <div id="local">
+                                <span class="material-symbols-outlined">
+                                    location_on
+                                </span>
+                                <p id="automovel_cidade_estado">
+                                    {{ favorito.cidade }} - {{ favorito.estado }}
+                                </p>
+                            </div>
+                        </div>
                     </a>
-                    <p id="automovel_nome">{{ favorito.nome }}</p>
-                    <p id="automovel_versao_carro">{{ favorito.versao_carro }}</p>
-                    {% if request.user == favorito.login %}
-                        <div class="buttons">
-                            <a href="{% url 'update_automovel' favorito.id %}" class="btn">
-                                <p>Atualizar</p>
-                            </a>
-                            <a href="{% url 'delete_automovel' favorito.id %}" class="btn">
-                                <p>Deletar</p>
-                            </a>
-                        </div>
-                    {% else %}
-                        <div class="buttons">
-                            <a href="{% url 'automovel_detalhe' favorito.id %}" class="btn">
-                                <p>Detalhe</p>
-                            </a>
-                        </div>
-                    {% endif %}
-                    <div id="automovel_desc">
-                        <p id="automovel_valor">R$ {{ favorito.valor }}
-                        </p>
-                        <p class="btn_parcelas">Ver Parcelas</p>
-                        <p id="automovel_ano">{{ favorito.ano }}</p>
-                        <p id="automovel_km">{{ favorito.km }} Km</p>
-                    </div>
-                    <div id="local">
-                        <span class="material-symbols-outlined">
-                            location_on
-                        </span>
-                        <p id="automovel_cidade_estado">
-                            {{ favorito.cidade }} - {{ favorito.estado }}
-                        </p>
-                    </div>
+                    {% endfor %}
                 </div>
-            </a>
-            {% endfor %}
-        </div>
+        {% else %}
+            <h2>Você não tem favoritos ainda.</h2>
+        {% endif %}
     {% endblock lista %}
 
     {% block footer %}

@@ -25,8 +25,27 @@
         </div>
         <a href="{% url 'automovel_listar' %}">
             <input type="submit" id="pesquisa_button" value="TODAS OFERTAS ({{automoveis|length}})">
-        </a>    
-        <p class="itens_titulo">Filtrar por Itens</p>
+        </a> 
+        <div class="itens">
+            {% for tipo_automovel in tipo_automovel.all %}
+            <div class="filtro_tipo_automovel">
+                <form method="GET" action="{% url 'automovel_listar' %}" id="form_id" autocomplete="off">
+                    <div class="div_tipo_automovel">{{tipo_automovel}}</div>
+                    <input type="submit" name="search_tipo_automovel" value="{{tipo_automovel.id}}" class="submit_tipo_automovel">
+                </form>
+            </div>
+            {% endfor %}
+        </div>   
+        <p class="titulo">Filtrar por Marca</p>
+        <div class="itens">
+            {% for marca in marca_automovel.all %}  
+                <form method="GET" action="{% url 'automovel_listar' %}" id="form_id" autocomplete="off">
+                    <div class="p_itens">{{marca}}</div>
+                    <input type="submit" name="search_marca_automovel" value="{{marca.id}}" class="submit_itens">
+                </form>
+            {% endfor %}  
+        </div>
+        <p class="titulo">Filtrar por Itens</p>
         <div class="itens">
             {% for itens in itens_veiculo.all %}  
                 <form method="GET" action="{% url 'automovel_listar' %}" id="form_id" autocomplete="off">
@@ -85,7 +104,8 @@
                     { % for automovel in automoveis|slice:":5" % }
                 -->
                 {% for automovel in automoveis %}
-                <div id="automovel_div">
+                    {% if automovel.status_anuncio %}
+                        <div id="automovel_div">
                             <a href="{% url 'automovel_detalhe' automovel.id %}">
                                 <img src="{{ automovel.foto1.url }}" alt="">
                             </a>
@@ -123,6 +143,7 @@
                                 </p>
                             </div>
                         </div>
+                    {% endif %}
                 {% endfor %}
             </div>
         </div>

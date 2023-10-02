@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@900&family=Roboto:wght@300;500&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@900&family=Roboto:wght@300;500&display=swap'); */
 
 *{
     border: none;
@@ -11,6 +11,7 @@ nav {
     position: fixed;
     background-color: white;
     width: 100%;
+    top: 0 !important;
     height: 75px;
     z-index: 5;
 }
@@ -138,6 +139,15 @@ footer > p {
     width: 100%;
     height: 200px;
     background-color: #444; 
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.meus_links{
+    text-decoration: none;
+    padding: 20px;
+    color: white;
 }
 
 #faixa {

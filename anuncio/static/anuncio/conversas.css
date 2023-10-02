@@ -1,0 +1,47 @@
+*{
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    /* font-family: 'M PLUS Rounded 1c', sans-serif; */
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-color: #eee;
+    height: 100vh;
+    width: 100vw;
+    overflow-x: hidden;
+}
+
+h1{
+    margin-top: 150px;
+    text-align: center;
+}
+
+#conversas{
+    margin: auto;
+    margin-top: 95px;
+    position: inherit;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color: white;
+    border-radius: .5rem;
+    width: 80%;
+}
+
+.receiver{
+    background-color: rgba(255, 0, 0, 0.723);
+    padding: .5rem;
+    color: white;
+    border-radius: .5rem;
+    margin: 2rem;
+    text-transform: capitalize;
+    font-size: larger;
+}
+
+.receiver:hover{
+    cursor: pointer;
+    background-color: red;
+}

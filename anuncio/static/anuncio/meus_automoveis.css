@@ -13,3 +13,7 @@ body{
     margin-top: 95px !important;
 }
 
+.carro_desativado{
+    opacity: .5;
+}
+
