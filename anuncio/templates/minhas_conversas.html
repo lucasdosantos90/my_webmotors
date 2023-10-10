@@ -30,18 +30,23 @@
 </div>
 {% endblock pesquisa %}
 
-    {% if sala %}
+    {% if salas %}
         <h2>Conversas</h2>
         <div id="conversas">
             {% for sala in salas %}
-                <form id="post-form" method="POST" action="{% url 'checkview' %}">
+                <form id="post-form" method="GET" action="{% url 'checkview' %}">
                     {% csrf_token %}
-                    <input type="hidden" value="{{sala.name}}" name="room_name" id="room_name" class="hidden">
-                    <input class="hidden" type="hidden" name="username" id="username" width="100px" value="" />
+                    <input class="hidden" type="hidden" name="username" id="username" width="100px" value="{{request.user}}" />
+                    <input class="hidden" type="hidden" name="receiver" id="receiver" width="100px" value="{{sala.receiver}}" />
+                    <input class="hidden" type="hidden" name="created_by" id="created_by" value="{{sala.created_by}}">
                     <input class="hidden" type="hidden" name="carro" id="carro" width="100px" value="{{sala.carro}}" />
-                    {% for carro in carros %}     
-                        {% if carro.id|stringformat:"s" == sala.carro %}
-                            <input type="submit" value="{{sala.receiver}} - {{carro.nome}}" class="receiver">                
+                    {% for carro in carros %}    
+                        {% if carro.id|stringformat:"s" == sala.carro|stringformat:"s" %} 
+                            {% if request.user|stringformat:"s" == sala.receiver|stringformat:"s" %}
+                                <input type="submit" value="{{sala.created_by}} - {{carro.nome}}" class="receiver">
+                            {% else %}
+                                <input type="submit" value="{{sala.receiver}} - {{carro.nome}}" class="receiver">
+                            {% endif %}
                         {% endif %}
                     {% endfor %}
                 </form>

@@ -11,6 +11,11 @@
     overflow-x: hidden;
   }
 
+  .automovel_link {
+    text-decoration: none !important;
+    color: red;
+  }
+
   #display{
     margin: 100px auto;
     width: 350px;

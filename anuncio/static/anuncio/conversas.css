@@ -21,7 +21,7 @@ h1{
 
 #conversas{
     margin: auto;
-    margin-top: 95px;
+    margin-top: 35px;
     position: inherit;
     display: flex;
     flex-direction: row;
@@ -37,11 +37,24 @@ h1{
     color: white;
     border-radius: .5rem;
     margin: 2rem;
-    text-transform: capitalize;
     font-size: larger;
 }
 
 .receiver:hover{
     cursor: pointer;
     background-color: red;
+}
+
+@media (max-width: 1024px){
+    #conversas{
+        margin: auto;
+        margin-top: 35px;
+        position: inherit;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        background-color: white;
+        border-radius: .5rem;
+        width: 100%;
+    }
 }

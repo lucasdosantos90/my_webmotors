@@ -6,7 +6,7 @@
 <link rel="stylesheet" type="text/css" href="{% static 'anuncio/chat.css' %}">
 <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
 
-<h2>Conversa de {{ username }}</h2>
+<h2>Conversa de {{ username }} com {{ room_details.receiver }} <a class="automovel_link" href="{% url 'automovel_detalhe' carro_id.id %}">{{ carro_id }}</h2>
 <div id="display">
 
     <!-- <div class="container darker">

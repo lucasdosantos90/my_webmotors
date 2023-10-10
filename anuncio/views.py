@@ -197,6 +197,7 @@ class DeleteAutomovel(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     template_name = 'delete_automovel.html'
     context_object_name = 'delete_automovel_obj'
     success_url = reverse_lazy('homepage')
+    
 
     #Para não permitir usuário criar/editar/excluir post de outros
     def test_func(self):
@@ -231,28 +232,37 @@ class RegisterPage(FormView):
 def room(request, room):
     username = request.GET.get('username')
     room_details = Room.objects.get(name=room)
+    carro_id = Automovel.objects.get(id=room_details.carro)
     return render(request, 'chat.html', {
         'username': username,
         'room': room,
-        'room_details': room_details
+        'room_details': room_details,
+        'carro_id':carro_id
     })
 
 
 @login_required(login_url='/login/')
 def checkview(request):
-    receiver = request.POST['room_name']
-    room = request.POST['room_name']
-    username = request.POST['username']
-    carro = request.POST['carro']
+    if request.method == 'POST':
+        username = request.POST['username']
+        receiver = request.POST['receiver']
+        created_by = request.POST['created_by']
+        carro = request.POST['carro']
+    elif request.method == 'GET':
+        username = request.GET.get('username')
+        receiver = request.GET.get('receiver')
+        created_by = request.GET.get('created_by')
+        carro = request.GET.get('carro')
     
-    room1 = room + username
-    room2 = username + room
     
-    if Room.objects.filter(name=room1).exists():
+    if Room.objects.filter(name=created_by + receiver + carro).exists():
+        room1 = created_by + receiver + carro
         return redirect('/'+room1+'/?username='+username)
-    elif Room.objects.filter(name=room2).exists():
-        return redirect('/'+room2+'/?username='+username)   
+    elif Room.objects.filter(name=receiver + created_by + carro).exists():
+        room2 = receiver + created_by + carro
+        return redirect('/'+room2+'/?username='+username)
     else:
+        room1 = created_by + receiver + carro
         new_room = Room.objects.create(name=room1,created_by=username,receiver=receiver,carro=carro)
         new_room.save()
         return redirect('/'+room1+'/?username='+username)
@@ -276,8 +286,11 @@ def getMessages(request, room):
 
 def minhas_conversas(request,room):
     mensagens = Message.objects.filter().all()
+
+    # fazer um if e verificar com um filter se o usuário logado está no objeto Message
+
     salas = Room.objects.filter().all()
     carros = Automovel.objects.filter().all()
-    print(mensagens)
-    print(salas)
+    print('mensagens-------------',mensagens)
+    print('salas-----------------',salas)
     return render(request, 'minhas_conversas.html', {'mensagens': mensagens,'salas': salas,'carros':carros})
